@@ -1,0 +1,9 @@
+@import "./custom.scss";
+
+.container-fluid {
+  font-family: "Roboto", Verdana, Geneva, Tahoma, sans-serif;
+}
+
+header .dropdown-toggle::after {
+  display: none;
+}

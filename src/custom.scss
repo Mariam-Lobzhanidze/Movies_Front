@@ -1,0 +1,92 @@
+$padding-main: 3rem 6rem;
+$movie-width: 30rem;
+$movie-bg-color: rgb(247, 239, 239);
+$box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+$color-dark-bg: rgb(69, 68, 68);
+$color-light-bg: rgba(255, 255, 255, 0.92);
+$color-heading: rgb(5, 82, 87);
+$color-green: rgb(101, 215, 101);
+$color-orange: orange;
+$color-red: rgb(247, 99, 99);
+
+main {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3rem;
+  padding: $padding-main;
+  justify-content: center;
+}
+
+.movie {
+  width: $movie-width;
+  box-shadow: $box-shadow;
+  border-radius: 6px;
+  overflow: hidden;
+  background-color: $movie-bg-color;
+  position: relative;
+  cursor: pointer;
+
+  img {
+    width: 100%;
+    transition: transform 0.3s ease-in;
+  }
+
+  &:hover img {
+    transform: scale(1.4);
+  }
+
+  .movie-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.8rem 1.6rem 1.6rem;
+    letter-spacing: 0.5px;
+
+    h3 {
+      color: $color-heading;
+      font-size: 2rem;
+    }
+
+    span {
+      background-color: $color-dark-bg;
+      padding: 0.4rem 0.8rem;
+      border-radius: 3px;
+      font-weight: bold;
+      font-size: 1.2rem;
+
+      &.green {
+        color: $color-green;
+      }
+      &.orange {
+        color: $color-orange;
+      }
+      &.red {
+        color: $color-red;
+      }
+    }
+  }
+
+  .overview {
+    padding: 3.2rem;
+    background-color: $color-light-bg;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    max-height: 100%;
+    transform: translateY(101%);
+    color: #333;
+    font-size: 1.4rem;
+    transition: transform 0.3s ease-in;
+
+    h3 {
+      font-size: 1.6rem;
+      color: #333;
+      margin-bottom: 1rem;
+    }
+  }
+
+  &:hover .overview {
+    transform: translate(0);
+  }
+}
