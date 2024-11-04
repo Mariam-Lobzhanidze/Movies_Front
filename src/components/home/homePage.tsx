@@ -1,9 +1,9 @@
-import Movies from "../movies/movies";
+import MovieList from "../movies/movieList";
 
 const Home = () => {
   return (
-    <div className="main">
-      <Movies />
+    <div className="movies">
+      <MovieList />
     </div>
   );
 };

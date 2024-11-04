@@ -6,19 +6,21 @@ const Home = React.lazy(() => import("./components/home/homePage"));
 const Login = React.lazy(() => import("./components/auth/login"));
 const Register = React.lazy(() => import("./components/auth/register"));
 const AdminPage = React.lazy(() => import("./components/admin/adminPage"));
+const TrailerPage = React.lazy(() => import("./components/movies/movieDetails/trailer"));
 
 const publicRoutes = [
   { path: "/", element: <Navigate to="/home" replace /> },
   { path: "/home", element: <Home /> },
   { path: "/login", element: <Login /> },
   { path: "/register", element: <Register /> },
+  { path: "/movies/trailer/:id", element: <TrailerPage /> },
 ];
 
 const protectedRoutes = [{ path: "/adminPage", element: <AdminPage /> }];
 
 const AppRoutes: React.FC = () => {
   return (
-    <Suspense fallback={<p>...loading</p>}>
+    <Suspense fallback={<p></p>}>
       <Routes>
         {publicRoutes.map((route) => (
           <Route key={route.path} path={route.path} element={route.element} />

@@ -1,92 +1,360 @@
-$padding-main: 3rem 6rem;
-$movie-width: 30rem;
-$movie-bg-color: rgb(247, 239, 239);
-$box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-$color-dark-bg: rgb(69, 68, 68);
-$color-light-bg: rgba(255, 255, 255, 0.92);
-$color-heading: rgb(5, 82, 87);
-$color-green: rgb(101, 215, 101);
+$movie-width: 1200px;
+$box-shadow: 0 3px 7px #00000089;
+$dark-bg: #080808;
+$dark-bg-soft: #131313;
+$color-light-bg: #ffffffeb;
+$color-green: #3fbf3f;
 $color-orange: orange;
-$color-red: rgb(247, 99, 99);
+$color-red: #f76363;
+$secondary-color-darker: #278f79;
+$tertiary-color: #f5c518;
 
-main {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 3rem;
-  padding: $padding-main;
-  justify-content: center;
+.movies {
+  padding: 1rem;
+  max-width: $movie-width;
+  margin: 30px auto 0px;
+
+  .section {
+    &-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+
+      .title {
+        color: $secondary;
+        font-size: 26px;
+      }
+
+      .more {
+        color: $secondary;
+        display: flex;
+        align-items: center;
+        column-gap: 6px;
+        cursor: pointer;
+        svg {
+          width: 20px;
+          height: 20px;
+          stroke: $secondary;
+        }
+      }
+    }
+
+    .movie-list {
+      margin: 0 auto;
+      display: grid;
+      gap: 1rem;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      grid-auto-rows: 1fr;
+      margin-bottom: 30px;
+
+      .movie {
+        width: 100%;
+        box-shadow: $box-shadow;
+        border-radius: 6px;
+        overflow: hidden;
+        background-color: $dark-bg-soft;
+
+        cursor: pointer;
+        position: relative;
+        .poster-container {
+          width: 100%;
+          min-height: 330px;
+          overflow: hidden;
+
+          img {
+            width: 100%;
+            height: 100%;
+            transition: all 0.3s ease;
+          }
+        }
+
+        &:hover .poster-container img {
+          transform: scale(1.1);
+        }
+
+        .movie-info {
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+          align-items: flex-start;
+          padding: 0.8rem 1.6rem 1.6rem;
+
+          h3 {
+            color: $primary;
+            font-size: 1.1rem;
+          }
+        }
+
+        .overview {
+          max-height: 80%;
+          padding: 1.6rem;
+          background-color: $color-light-bg;
+          position: absolute;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          transform: translateY(101%);
+          color: #333;
+          font-size: 1rem;
+          transition: transform 0.3s ease-in;
+
+          h3 {
+            font-size: 1.2rem;
+            color: $primary;
+            font-weight: 600;
+            margin-bottom: 1rem;
+          }
+        }
+
+        &:hover .overview {
+          transform: translateY(0);
+        }
+      }
+
+      .movie.skeleton {
+        .poster-container {
+          height: 330px;
+          div {
+            height: 100%;
+          }
+        }
+
+        &.poster-container:hover img {
+          transform: scale(1);
+        }
+
+        .overview {
+          display: none;
+        }
+      }
+    }
+
+    @media (max-width: 600px) {
+      &-header {
+        .title {
+          font-size: 20px;
+        }
+
+        .more {
+          font-size: 14px;
+          svg {
+            width: 16px;
+            height: 16px;
+          }
+        }
+      }
+    }
+  }
 }
 
-.movie {
-  width: $movie-width;
-  box-shadow: $box-shadow;
-  border-radius: 6px;
-  overflow: hidden;
-  background-color: $movie-bg-color;
-  position: relative;
-  cursor: pointer;
+.trailer-page {
+  max-width: $movie-width;
+  margin: 0px auto;
+  .trailer {
+    background-color: $dark-bg-soft;
+    display: grid;
+    grid-template-columns: 65% 35%;
 
-  img {
-    width: 100%;
-    transition: transform 0.3s ease-in;
+    .trailer-details {
+      padding: 16px;
+
+      &-header {
+        display: flex;
+        column-gap: 12px;
+        align-items: flex-start;
+        margin-bottom: 20px;
+
+        .details-text {
+          &-title {
+            font-size: 20px;
+            margin-bottom: 8px;
+            color: $primary;
+          }
+
+          &-genre {
+            color: $secondary;
+            font-size: 14px;
+            margin: 0;
+          }
+        }
+
+        .poster-img-container {
+          min-height: 180px;
+          max-width: 120px;
+          border-radius: 6px;
+          overflow: hidden;
+
+          img {
+            width: 100%;
+            height: 100%;
+          }
+        }
+      }
+
+      &-overview {
+        display: flex;
+        flex-direction: column;
+        row-gap: 20px;
+
+        .tagline {
+          color: #888;
+          font-size: 14px;
+          font-weight: 600;
+        }
+
+        .status {
+          background-color: $secondary-color-darker;
+          padding: 3px 8px;
+          border-radius: 6px;
+          width: fit-content;
+          font-size: 12px;
+          box-shadow: $box-shadow;
+          font-weight: 500;
+        }
+
+        .overview {
+          font-size: 14px;
+          min-height: 100px;
+        }
+      }
+
+      &-footer {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+    }
+
+    &-video {
+      min-height: 430px;
+      div {
+        height: 100%;
+      }
+    }
   }
 
-  &:hover img {
-    transform: scale(1.4);
+  @media (max-width: 1050px) {
+    .trailer {
+      grid-template-columns: 1fr;
+
+      &-video div {
+        min-height: 360px;
+      }
+    }
   }
 
-  .movie-info {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0.8rem 1.6rem 1.6rem;
-    letter-spacing: 0.5px;
+  @media (max-width: 600px) {
+    .trailer {
+      &-video div {
+        min-height: 240px;
+      }
+
+      &-details {
+        &-header .details-text {
+          .details-text-title {
+            font-size: 18px;
+          }
+        }
+      }
+
+      .poster-img-container {
+        display: none;
+      }
+    }
+  }
+
+  .simple-slider {
+    // margin-left: 26px;
+
+    .slick-dots li button::before {
+      color: $body-color;
+      font-size: 8px;
+    }
+
+    .slick-dots li.slick-active button::before {
+      color: $primary;
+    }
+  }
+
+  .section {
+    margin: 30px;
+    background-color: $dark-bg-soft;
+    padding: 20px;
+  }
+
+  .production-company .company-name {
+    font-size: 16px;
+    padding: 16px;
+    color: $primary;
+  }
+}
+
+.tag {
+  font-weight: bold;
+  font-size: 0.8rem;
+  display: flex;
+  align-items: center;
+  column-gap: 8px;
+
+  svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  &.green {
+    color: $color-green;
+    svg {
+      fill: $color-green;
+    }
+  }
+
+  &.orange {
+    color: $color-orange;
+    svg {
+      fill: $color-orange;
+    }
+  }
+
+  &.red {
+    color: $color-red;
+    svg {
+      fill: $color-red;
+    }
+  }
+}
+
+//
+
+.section-title {
+  margin: 40px 0px 30px;
+  display: flex;
+  border-left: 3px solid $tertiary-color;
+  align-items: center;
+  column-gap: 12px;
+
+  &-text {
+    position: relative;
+    margin-left: 12px;
 
     h3 {
-      color: $color-heading;
-      font-size: 2rem;
+      margin: 0;
     }
 
-    span {
-      background-color: $color-dark-bg;
-      padding: 0.4rem 0.8rem;
-      border-radius: 3px;
-      font-weight: bold;
-      font-size: 1.2rem;
-
-      &.green {
-        color: $color-green;
-      }
-      &.orange {
-        color: $color-orange;
-      }
-      &.red {
-        color: $color-red;
-      }
+    .count {
+      position: absolute;
+      top: 0;
+      right: -22px;
+      font-size: 14px;
+      color: #fff;
     }
   }
 
-  .overview {
-    padding: 3.2rem;
-    background-color: $color-light-bg;
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    max-height: 100%;
-    transform: translateY(101%);
-    color: #333;
-    font-size: 1.4rem;
-    transition: transform 0.3s ease-in;
-
-    h3 {
-      font-size: 1.6rem;
-      color: #333;
-      margin-bottom: 1rem;
+  &-icon {
+    margin-left: 12px;
+    svg {
+      width: 30px;
+      height: 30px;
     }
-  }
-
-  &:hover .overview {
-    transform: translate(0);
   }
 }

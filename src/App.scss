@@ -1,7 +1,17 @@
+$primary: #28b6cf;
+$secondary: #42dbb9;
+$body-color: #fff;
+$body-bg: #131313;
+
 @import "./custom.scss";
+@import "../node_modules/bootstrap";
 
 .container-fluid {
-  font-family: "Roboto", Verdana, Geneva, Tahoma, sans-serif;
+  background-color: $dark-bg;
+}
+
+header {
+  background-color: $dark-bg-soft;
 }
 
 header .dropdown-toggle::after {

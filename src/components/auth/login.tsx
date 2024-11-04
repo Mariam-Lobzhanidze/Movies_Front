@@ -28,7 +28,7 @@ const Login: React.FC = () => {
   };
 
   return (
-    <div className="container">
+    <div className="container mt-5">
       <div className="row justify-content-center">
         <div className="col-12 col-sm-8 col-md-6" style={{ maxWidth: "400px" }}>
           <form id="login-form" className="form shadow px-4 py-4 rounded" onSubmit={handleSubmit(onSubmit)}>

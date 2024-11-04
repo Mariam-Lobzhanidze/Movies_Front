@@ -14,10 +14,10 @@ const Header: React.FC = () => {
   ];
 
   return (
-    <header className="p-3 mb-5 border-bottom ">
+    <header className="p-4 border-bottom ">
       <div className="container d-flex align-items-center justify-content-between">
         <div className="d-flex gap-2 align-items-center">
-          <Link to="/" className="me-4 navbar-brand fs-5 fw-bold navbar-brand">
+          <Link to="/" className="me-4 navbar-brand fs-5 fw-bold">
             Movies
           </Link>
           <ul className="nav d-none d-lg-flex gap-1 align-items-center">

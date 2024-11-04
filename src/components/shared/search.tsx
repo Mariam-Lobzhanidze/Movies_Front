@@ -11,7 +11,7 @@ const SearchBar: React.FC = () => {
     <form role="search">
       <input
         type="search"
-        className="form-control form-control-sm"
+        className="form-control form-control-sm bg-transparent"
         placeholder="Search movies..."
         aria-label="Search"
         value={query}
