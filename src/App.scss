@@ -2,9 +2,14 @@ $primary: #28b6cf;
 $secondary: #42dbb9;
 $body-color: #fff;
 $body-bg: #131313;
+$table-header-color: #fff;
 
-@import "./custom.scss";
 @import "../node_modules/bootstrap";
+@import "./custom.scss";
+
+.table thead th {
+  color: $table-header-color;
+}
 
 .container-fluid {
   background-color: $dark-bg;

@@ -38,6 +38,7 @@ export interface Movie {
   id?: number | undefined;
   overview?: string;
   poster_path: string;
+  backdrop_path?: string;
   title: string;
   vote_average: number;
   vote_count: number;
@@ -169,7 +170,7 @@ export interface MovieData {
   details: MovieDetails;
   trailerKey: string | null;
   images: ImageDetails[];
-  similarMovies: SimilarMovies;
+  similarMovies: Movie[];
   reviews?: MovieReviews;
   //
   poster_image?: string;
@@ -188,6 +189,7 @@ export interface Company {
 
 export interface GalleryImage {
   original: string;
-  thumbnail: string;
+  thumbnail?: string;
   originalHeight?: number;
+  originalTitle?: string;
 }

@@ -6,7 +6,7 @@ import Rating from "../shared/rating";
 
 interface MovieCardProps {
   movie: Movie;
-  isLoading: boolean;
+  isLoading?: boolean;
 }
 
 const MovieCard: React.FC<MovieCardProps> = ({ movie, isLoading }) => {

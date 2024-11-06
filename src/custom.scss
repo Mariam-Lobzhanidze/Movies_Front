@@ -9,12 +9,105 @@ $color-red: #f76363;
 $secondary-color-darker: #278f79;
 $tertiary-color: #f5c518;
 
+@mixin grid-container($gap: 1rem, $min: 220px) {
+  display: grid;
+  gap: $gap;
+  grid-template-columns: repeat(auto-fill, minmax($min, 1fr));
+  grid-auto-rows: 1fr;
+}
+
+@mixin movie-card($bg-color: $dark-bg-soft, $shadow: $box-shadow, $height: 330px) {
+  width: 100%;
+  box-shadow: $shadow;
+  border-radius: 6px;
+  overflow: hidden;
+  background-color: $bg-color;
+  cursor: pointer;
+  position: relative;
+
+  .poster-container {
+    width: 100%;
+    min-height: $height;
+    overflow: hidden;
+    background-color: $dark-bg-soft;
+
+    img {
+      width: 100%;
+      height: 100%;
+      transition: all 0.3s ease;
+      object-fit: cover;
+      object-position: center;
+    }
+  }
+
+  &:hover .poster-container img {
+    transform: scale(1.1);
+  }
+
+  .movie-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 0.8rem 1.6rem 1.6rem;
+
+    h3 {
+      color: $primary;
+      font-size: 1.1rem;
+    }
+  }
+
+  .overview {
+    max-height: 80%;
+    padding: 1.6rem;
+    background-color: $color-light-bg;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    transform: translateY(101%);
+    color: #333;
+    font-size: 1rem;
+    transition: transform 0.3s ease-in;
+
+    h3 {
+      font-size: 1.2rem;
+      color: $primary;
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+  }
+
+  &:hover .overview {
+    transform: translateY(0);
+  }
+
+  &.skeleton {
+    .poster-container {
+      height: $height;
+
+      div {
+        height: 100%;
+      }
+    }
+
+    &:hover .poster-container img {
+      transform: scale(1);
+    }
+
+    .overview {
+      display: none;
+    }
+  }
+}
+
 .movies {
   padding: 1rem;
   max-width: $movie-width;
   margin: 30px auto 0px;
 
   .section {
+    margin-bottom: 40px;
     &-header {
       display: flex;
       justify-content: space-between;
@@ -42,92 +135,8 @@ $tertiary-color: #f5c518;
 
     .movie-list {
       margin: 0 auto;
-      display: grid;
-      gap: 1rem;
-      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-      grid-auto-rows: 1fr;
+      @include grid-container();
       margin-bottom: 30px;
-
-      .movie {
-        width: 100%;
-        box-shadow: $box-shadow;
-        border-radius: 6px;
-        overflow: hidden;
-        background-color: $dark-bg-soft;
-
-        cursor: pointer;
-        position: relative;
-        .poster-container {
-          width: 100%;
-          min-height: 330px;
-          overflow: hidden;
-
-          img {
-            width: 100%;
-            height: 100%;
-            transition: all 0.3s ease;
-          }
-        }
-
-        &:hover .poster-container img {
-          transform: scale(1.1);
-        }
-
-        .movie-info {
-          display: flex;
-          flex-direction: column;
-          justify-content: space-between;
-          align-items: flex-start;
-          padding: 0.8rem 1.6rem 1.6rem;
-
-          h3 {
-            color: $primary;
-            font-size: 1.1rem;
-          }
-        }
-
-        .overview {
-          max-height: 80%;
-          padding: 1.6rem;
-          background-color: $color-light-bg;
-          position: absolute;
-          left: 0;
-          right: 0;
-          bottom: 0;
-          transform: translateY(101%);
-          color: #333;
-          font-size: 1rem;
-          transition: transform 0.3s ease-in;
-
-          h3 {
-            font-size: 1.2rem;
-            color: $primary;
-            font-weight: 600;
-            margin-bottom: 1rem;
-          }
-        }
-
-        &:hover .overview {
-          transform: translateY(0);
-        }
-      }
-
-      .movie.skeleton {
-        .poster-container {
-          height: 330px;
-          div {
-            height: 100%;
-          }
-        }
-
-        &.poster-container:hover img {
-          transform: scale(1);
-        }
-
-        .overview {
-          display: none;
-        }
-      }
     }
 
     @media (max-width: 600px) {
@@ -193,6 +202,7 @@ $tertiary-color: #f5c518;
       }
 
       &-overview {
+        max-width: 600px;
         display: flex;
         flex-direction: column;
         row-gap: 20px;
@@ -264,19 +274,6 @@ $tertiary-color: #f5c518;
     }
   }
 
-  .simple-slider {
-    // margin-left: 26px;
-
-    .slick-dots li button::before {
-      color: $body-color;
-      font-size: 8px;
-    }
-
-    .slick-dots li.slick-active button::before {
-      color: $primary;
-    }
-  }
-
   .section {
     margin: 30px;
     background-color: $dark-bg-soft;
@@ -324,10 +321,8 @@ $tertiary-color: #f5c518;
   }
 }
 
-//
-
 .section-title {
-  margin: 40px 0px 30px;
+  margin-bottom: 30px;
   display: flex;
   border-left: 3px solid $tertiary-color;
   align-items: center;
@@ -358,3 +353,39 @@ $tertiary-color: #f5c518;
     }
   }
 }
+
+@media (max-width: 600px) {
+  .section-title {
+    &-text {
+      h3 {
+        font-size: 18px;
+      }
+    }
+  }
+}
+.movie {
+  @include movie-card();
+}
+
+.swiper-pagination {
+  display: none;
+}
+
+//
+// .image-gallery {
+//   width: 60%;
+//   height: auto;
+// }
+
+// .image-gallery-slide img {
+//   width: 60%;
+//   height: auto;
+//   max-height: 80vh;
+//   object-fit: cover;
+//   overflow: hidden;
+//   object-position: center center;
+// }
+
+// .fullscreen .image-gallery-slide img {
+//   max-height: 100vh;
+// }

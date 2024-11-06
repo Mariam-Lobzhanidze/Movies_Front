@@ -8,7 +8,8 @@ import Rating from "../../shared/rating";
 import TrailerDetailsSkeleton from "../../shared/trailerDetailsSkeleton";
 import MovieProductionCompanies from "./productionCompanies";
 import ImageGalleryComponent from "../../shared/imageGallery";
-
+import SimilarMovies from "./similarMovies";
+//
 const TrailerPage: React.FC = () => {
   const [isLoading, setIsLoading] = useState(true);
   const IMAGE_BASE_URL = import.meta.env.VITE_APP_IMAGE_BASE_URL;
@@ -17,7 +18,7 @@ const TrailerPage: React.FC = () => {
 
   useEffect(() => {
     getMovieData();
-  }, []);
+  }, [id]);
 
   const getMovieData = async () => {
     setIsLoading(true);
@@ -62,7 +63,7 @@ const TrailerPage: React.FC = () => {
       movieData?.images.map((item) => ({
         original: `${IMAGE_BASE_URL}w500${item.file_path}`,
         thumbnail: `${IMAGE_BASE_URL}w300${item.file_path}`,
-        originalHeight: 400,
+        // originalHeight: 400,
       })) || []
     );
   };
@@ -105,6 +106,8 @@ const TrailerPage: React.FC = () => {
           </div>
         </div>
       </div>
+
+      <SimilarMovies similarMovies={movieData?.similarMovies || []} />
 
       <MovieProductionCompanies companies={movieData?.production_Companies} />
       <ImageGalleryComponent title="Posters" images={getMovieImages()} />

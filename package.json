@@ -25,6 +25,7 @@
     "react-image-gallery": "^1.3.0",
     "react-router-dom": "^6.26.2",
     "react-youtube": "^10.1.0",
+    "swiper": "^11.1.14",
     "uuid": "^10.0.0"
   },
   "devDependencies": {

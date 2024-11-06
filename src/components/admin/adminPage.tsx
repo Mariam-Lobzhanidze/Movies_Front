@@ -155,7 +155,7 @@ const AdminPage: React.FC = () => {
           </thead>
           <tbody>
             {users.map((user) => (
-              <tr key={user.id} className={user.status === "blocked" ? "table-warning" : "table-light"}>
+              <tr key={user.id} className={user.status === "blocked" ? "table-warning" : "table-dark"}>
                 <td>
                   <input
                     className="form-check-input"

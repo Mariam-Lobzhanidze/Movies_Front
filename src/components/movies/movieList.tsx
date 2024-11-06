@@ -2,11 +2,15 @@ import { useEffect, useState } from "react";
 import httpClient from "../../axios";
 import { Movie } from "../shared/types";
 import MovieCard from "./movieCard";
+import { useSearchParams } from "react-router-dom";
+import SectionTitle from "../shared/sectionTitle";
 
 const MovieList: React.FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [movies, setMovies] = useState<Movie[]>([]);
-  const [currentPage, setCurrentPage] = useState<number>(1);
+
+  const [searchParams, setSearchParams] = useSearchParams();
+  const currentPage = parseInt(searchParams.get("page") || "1", 10);
 
   useEffect(() => {
     getMovies();
@@ -28,6 +32,7 @@ const MovieList: React.FC = () => {
       }));
 
       setMovies(movieData);
+
       setTimeout(() => {
         setIsLoading(false);
       }, 500);
@@ -37,13 +42,14 @@ const MovieList: React.FC = () => {
   };
 
   const onPageChange = () => {
-    setCurrentPage(currentPage + 1);
+    setSearchParams({ page: (currentPage + 1).toString() });
   };
 
   return (
     <div className="section">
       <div className="section-header">
-        <h3 className="title">Popular Movies</h3>
+        {/* <h3 className="title">Popular Movies</h3> */}
+        <SectionTitle title="Popular Movies" count={movies.length} />
         <p className="more" onClick={onPageChange}>
           more{" "}
           <svg
