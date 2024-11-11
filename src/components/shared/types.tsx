@@ -19,6 +19,8 @@ export interface User {
   role: "admin" | "user";
   status: "active" | "blocked";
   profile_image_url?: string | null;
+  favorites: Movie[];
+  watchlist: Movie[];
 }
 
 export interface LoginResponse {
@@ -35,7 +37,7 @@ export interface UsersData {
 
 // movie interface section
 export interface Movie {
-  id?: number | undefined;
+  id?: number;
   overview?: string;
   poster_path: string;
   backdrop_path?: string;

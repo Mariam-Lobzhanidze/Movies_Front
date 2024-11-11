@@ -1,4 +1,3 @@
-import React from "react";
 import ImageGallery from "react-image-gallery";
 import "react-image-gallery/styles/css/image-gallery.css";
 import { GalleryImage } from "./types";
@@ -7,14 +6,20 @@ import SectionTitle from "./sectionTitle";
 export interface ImageGalleryComponentProps {
   title: string;
   images: GalleryImage[];
+  thumbnail: boolean;
 }
 
-const ImageGalleryComponent: React.FC<ImageGalleryComponentProps> = ({ images, title }) => {
+const ImageGalleryComponent: React.FC<ImageGalleryComponentProps> = ({ images, title, thumbnail }) => {
   return (
-    <div className="section">
+    <div>
       <SectionTitle title={title} count={images.length} />
       <div className="image-gallery-wrapper">
-        <ImageGallery autoPlay={true} items={images} showThumbnails={false} showFullscreenButton={true} />
+        <ImageGallery
+          autoPlay={true}
+          items={images}
+          showThumbnails={thumbnail}
+          showFullscreenButton={false}
+        />
       </div>
     </div>
   );

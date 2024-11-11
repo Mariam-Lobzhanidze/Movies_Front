@@ -10,7 +10,7 @@ const SimilarMovies: React.FC<SimilarMoviesProps> = ({ similarMovies }) => {
   return (
     <div className="section">
       <SectionTitle title="Similar Movies" count={similarMovies?.length} />
-      <SwiperSlider cardView={true} items={similarMovies} slidesPerView={4} />
+      <SwiperSlider cardView={true} items={similarMovies} slidesPerView={5} />
     </div>
   );
 };

@@ -22,9 +22,14 @@ const Header: React.FC = () => {
           </Link>
           <ul className="nav d-none d-lg-flex gap-1 align-items-center">
             <li>
-              {/* <Link key={activeUser?.id} to={`/users/${activeUser?.id}/templates`} className="nav-link px-2">
-                Templates table
-              </Link> */}
+              <Link to={`/movies/favorites`} className="nav-link px-2">
+                Favorites
+              </Link>
+            </li>
+            <li>
+              <Link to={`/movies/watchlist`} className="nav-link px-2">
+                Watchlist
+              </Link>
             </li>
           </ul>
         </div>

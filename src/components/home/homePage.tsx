@@ -1,11 +1,13 @@
-import MovieList from "../movies/movieList";
 import MoviesInTheatre from "../movies/moviesInTheatre";
+import PopularMovies from "../movies/popularMovies";
+import SignInToAccess from "../shared/SignInToAccess";
 
 const Home = () => {
   return (
-    <div className="movies">
-      <MovieList />
+    <div className="home">
+      <PopularMovies />
       <MoviesInTheatre />
+      <SignInToAccess title="From your Watchlist" />
     </div>
   );
 };

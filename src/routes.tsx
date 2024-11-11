@@ -1,6 +1,9 @@
 import React, { Suspense } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import ProtectedRoute from "./protectedRoutes";
+import ScrollToTop from "./components/scrollToTop";
+import FavoriteMovies from "./components/movies/favorites";
+import Watchlist from "./components/movies/watchlist";
 
 const Home = React.lazy(() => import("./components/home/homePage"));
 const Login = React.lazy(() => import("./components/auth/login"));
@@ -16,11 +19,16 @@ const publicRoutes = [
   { path: "/movies/trailer/:id", element: <TrailerPage /> },
 ];
 
-const protectedRoutes = [{ path: "/adminPage", element: <AdminPage /> }];
+const protectedRoutes = [
+  { path: "/adminPage", element: <AdminPage /> },
+  { path: "/movies/favorites", element: <FavoriteMovies /> },
+  { path: "/movies/watchlist", element: <Watchlist /> },
+];
 
 const AppRoutes: React.FC = () => {
   return (
     <Suspense fallback={<p></p>}>
+      <ScrollToTop />
       <Routes>
         {publicRoutes.map((route) => (
           <Route key={route.path} path={route.path} element={route.element} />

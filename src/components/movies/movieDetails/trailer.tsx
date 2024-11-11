@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import YouTube from "react-youtube";
@@ -9,7 +8,7 @@ import TrailerDetailsSkeleton from "../../shared/trailerDetailsSkeleton";
 import MovieProductionCompanies from "./productionCompanies";
 import ImageGalleryComponent from "../../shared/imageGallery";
 import SimilarMovies from "./similarMovies";
-//
+
 const TrailerPage: React.FC = () => {
   const [isLoading, setIsLoading] = useState(true);
   const IMAGE_BASE_URL = import.meta.env.VITE_APP_IMAGE_BASE_URL;
@@ -63,7 +62,7 @@ const TrailerPage: React.FC = () => {
       movieData?.images.map((item) => ({
         original: `${IMAGE_BASE_URL}w500${item.file_path}`,
         thumbnail: `${IMAGE_BASE_URL}w300${item.file_path}`,
-        // originalHeight: 400,
+        originalHeight: 360,
       })) || []
     );
   };
@@ -110,7 +109,9 @@ const TrailerPage: React.FC = () => {
       <SimilarMovies similarMovies={movieData?.similarMovies || []} />
 
       <MovieProductionCompanies companies={movieData?.production_Companies} />
-      <ImageGalleryComponent title="Posters" images={getMovieImages()} />
+      <div className="posters-slider">
+        <ImageGalleryComponent title="Posters" images={getMovieImages()} thumbnail={false} />
+      </div>
     </div>
   );
 };

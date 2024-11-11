@@ -14,16 +14,17 @@ const MoviesInTheatre: React.FC = () => {
   const getMoviesInTheatre = async () => {
     const response = await httpClient.get("/theatre");
 
-    const modified = response.data.results.map((movie: { backdrop_path: string }) => ({
-      original: `${IMAGE_BASE_URL}original${movie.backdrop_path}`,
+    const modified = response.data.results.map((movie: { backdrop_path: string; poster_path: string }) => ({
+      original: `${IMAGE_BASE_URL}original${movie.poster_path}`,
+      thumbnail: `${IMAGE_BASE_URL}w300${movie.poster_path}`,
+      originalHeight: 400,
     }));
     setMoviesInTheatre(modified);
   };
 
   return (
-    <div className="section">
-      <ImageGalleryComponent title="In theatre" images={moviesInTheatre} />
-      <h3 className="section-header"> {""}</h3>
+    <div className="movies-in-theatre section">
+      <ImageGalleryComponent title="In theatre" images={moviesInTheatre} thumbnail={true} />
     </div>
   );
 };

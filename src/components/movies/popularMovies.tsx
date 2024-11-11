@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import httpClient from "../../axios";
 import { Movie } from "../shared/types";
-import MovieCard from "./movieCard";
 import { useSearchParams } from "react-router-dom";
 import SectionTitle from "../shared/sectionTitle";
+import MovieList from "../shared/movieList";
 
-const MovieList: React.FC = () => {
+const PopularMovies: React.FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [movies, setMovies] = useState<Movie[]>([]);
 
@@ -42,34 +42,29 @@ const MovieList: React.FC = () => {
   };
 
   const onPageChange = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
     setSearchParams({ page: (currentPage + 1).toString() });
   };
 
   return (
-    <div className="section">
-      <div className="section-header">
-        {/* <h3 className="title">Popular Movies</h3> */}
-        <SectionTitle title="Popular Movies" count={movies.length} />
+    <div className="popular-movies section">
+      <SectionTitle title="Popular Movies" count={movies.length} />
+      <MovieList movies={movies} isLoading={isLoading} />
+      <a className="action-btn">
         <p className="more" onClick={onPageChange}>
           more{" "}
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
-            stroke-width="1.5"
+            strokeWidth="1.5"
             className="size-6">
-            <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
+            <path strokeLinecap="round" strokeLinejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
           </svg>
         </p>
-      </div>
-
-      <div className="movie-list">
-        {movies?.map((movie: Movie) => (
-          <MovieCard movie={movie} isLoading={isLoading} />
-        ))}
-      </div>
+      </a>
     </div>
   );
 };
 
-export default MovieList;
+export default PopularMovies;

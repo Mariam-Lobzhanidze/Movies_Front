@@ -21,11 +21,13 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   useEffect(() => {
     const token = localStorage.getItem("authToken");
     if (token) {
-      const storedUser = localStorage.getItem("activeUser");
-      if (storedUser) {
-        setActiveUser(JSON.parse(storedUser));
-      }
       setIsLoggedIn(true);
+    }
+
+    const storedUser = localStorage.getItem("activeUser");
+    if (storedUser) {
+      const parsedUser = JSON.parse(storedUser);
+      setActiveUser(parsedUser);
     }
   }, []);
 
@@ -49,8 +51,8 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   const updateActiveUser = async (user: Partial<User>) => {
     if (activeUser) {
       const updatedUser = { ...activeUser, ...user };
-      setActiveUser(updatedUser);
       localStorage.setItem("activeUser", JSON.stringify(updatedUser));
+      setActiveUser(updatedUser);
     }
   };
 

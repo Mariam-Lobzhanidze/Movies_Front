@@ -5,7 +5,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { Movie } from "./types";
-import MovieCard from "../movies/movieCard";
+import MovieCard from "./movieCard";
 
 interface SwiperProps {
   items: Movie[];
@@ -39,10 +39,6 @@ const SwiperSlider: React.FC<SwiperProps> = ({ items, slidesPerView = 4, cardVie
         },
       }}>
       {items.map((item) => (
-        // <SwiperSlide>
-        //   <MovieCard key={item.id} movie={item} />
-        // </SwiperSlide>
-
         <SwiperSlide key={item.id}>
           {cardView ? (
             <MovieCard movie={item} />

@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { useAuth } from "../../context/authContext";
 import Dropdown from "./dropdown";
 import profileImage from "../../assets/profile_default.jpg";
@@ -26,12 +26,19 @@ const MobileNav: React.FC = () => {
         <hr />
         <ul className="nav nav-pills flex-column mb-auto gap-3">
           <li className="nav-item">
-            {/* <NavLink
-              key={activeUser?.id}
-              to={`/users/${activeUser?.id}/templates`}
+            <NavLink
+              to={`/movies/favorites`}
               className={({ isActive }) => `nav-link px-2 ${isActive ? "active" : ""}`}>
-              Templates table
-            </NavLink> */}
+              Favorites
+            </NavLink>
+          </li>
+
+          <li className="nav-item">
+            <NavLink
+              to={`/movies/watchlist`}
+              className={({ isActive }) => `nav-link px-2 ${isActive ? "active" : ""}`}>
+              Watchlist
+            </NavLink>
           </li>
         </ul>
 
