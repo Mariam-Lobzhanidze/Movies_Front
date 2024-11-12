@@ -1,6 +1,6 @@
 import MoviesInTheatre from "../movies/moviesInTheatre";
 import PopularMovies from "../movies/popularMovies";
-import SignInToAccess from "../shared/SignInToAccess";
+import SignInToAccess from "../movies/SignInToAccess";
 
 const Home = () => {
   return (

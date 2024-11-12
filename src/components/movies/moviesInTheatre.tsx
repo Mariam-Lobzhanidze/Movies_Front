@@ -15,7 +15,7 @@ const MoviesInTheatre: React.FC = () => {
     const response = await httpClient.get("/theatre");
 
     const modified = response.data.results.map((movie: { backdrop_path: string; poster_path: string }) => ({
-      original: `${IMAGE_BASE_URL}original${movie.poster_path}`,
+      original: `${IMAGE_BASE_URL}original${movie.backdrop_path}`,
       thumbnail: `${IMAGE_BASE_URL}w300${movie.poster_path}`,
       originalHeight: 400,
     }));

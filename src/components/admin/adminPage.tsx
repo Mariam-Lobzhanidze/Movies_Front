@@ -96,12 +96,12 @@ const AdminPage: React.FC = () => {
 
   return (
     <div className="mt-5 container">
-      <div className=" mb-3 d-flex justify-content-between">
+      <div className="mb-3 d-flex gap-3 flex-column flex-md-row justify-content-between">
         <div className="d-flex gap-2">
-          <button onClick={() => updateUserStatus("blocked")} className="btn btn-secondary">
+          <button onClick={() => updateUserStatus("blocked")} className="btn btn-dark">
             Block
           </button>
-          <button onClick={() => updateUserStatus("active")} className="btn btn-primary">
+          <button onClick={() => updateUserStatus("active")} className="btn btn-light">
             Unblock
           </button>
           <button onClick={deleteUsers} className="btn btn-danger">
@@ -111,7 +111,7 @@ const AdminPage: React.FC = () => {
 
         <div className="dropdown">
           <button
-            className="btn btn-secondary dropdown-toggle"
+            className="btn btn-primary dropdown-toggle"
             type="button"
             id="dropdownMenuButton"
             data-bs-toggle="dropdown"

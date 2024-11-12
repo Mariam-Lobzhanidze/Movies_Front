@@ -37,8 +37,9 @@ const Header: React.FC = () => {
         <i
           data-bs-toggle="offcanvas"
           data-bs-target="#offcanvas"
-          className="bi bi-list fs-3  d-lg-none d-flex"
+          className="bi bi-list fs-3 d-lg-none d-flex"
           role="button"></i>
+        <MobileNav />
 
         <div className="d-none d-lg-flex gap-3 align-items-center">
           <Search />
@@ -60,8 +61,6 @@ const Header: React.FC = () => {
       <div className="container d-lg-none d-block mt-4">
         <Search />
       </div>
-
-      <MobileNav />
     </header>
   );
 };

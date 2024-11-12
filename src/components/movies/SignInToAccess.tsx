@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/authContext";
-import SectionTitle from "./sectionTitle";
+import SectionTitle from "../shared/sectionTitle";
 import { useEffect, useState } from "react";
-import { Movie } from "./types";
-import SwiperSlider from "./slider";
+import { Movie } from "../shared/types";
+import SwiperSlider from "../shared/slider";
 
 interface SignInToAccessProps {
   title: string;
@@ -31,7 +31,7 @@ const SignInToAccess: React.FC<SignInToAccessProps> = ({ title }) => {
   if (activeUser?.id) {
     return (
       <div className="section">
-        <SectionTitle title={title} />
+        <SectionTitle title={title} count={movies.length} />
         <SwiperSlider cardView={true} items={movies} slidesPerView={5} />
       </div>
     );

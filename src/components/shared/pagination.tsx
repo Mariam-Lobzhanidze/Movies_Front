@@ -9,10 +9,10 @@ interface PaginationProps {
 const Pagination: React.FC<PaginationProps> = ({ currentPage, totalPages, onPageChange }) => {
   return (
     <nav aria-label="Page navigation">
-      <ul className="pagination pagination-sm justify-content-end">
+      <ul className="pagination pagination-sm justify-content-end mt-4">
         <li className={`page-item ${currentPage === 1 ? "disabled" : ""}`}>
           <a
-            className="page-link"
+            className="page-link bg-dark"
             href="#"
             aria-label="Previous"
             onClick={() => onPageChange(currentPage - 1)}>
@@ -27,7 +27,11 @@ const Pagination: React.FC<PaginationProps> = ({ currentPage, totalPages, onPage
           </li>
         ))}
         <li className={`page-item ${currentPage === totalPages ? "disabled" : ""}`}>
-          <a onClick={() => onPageChange(currentPage + 1)} className="page-link" href="#" aria-label="Next">
+          <a
+            onClick={() => onPageChange(currentPage + 1)}
+            className="page-link bg-dark"
+            href="#"
+            aria-label="Next">
             <span aria-hidden="true">&raquo;</span>
           </a>
         </li>

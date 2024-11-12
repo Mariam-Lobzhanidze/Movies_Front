@@ -50,8 +50,8 @@ const PopularMovies: React.FC = () => {
     <div className="popular-movies section">
       <SectionTitle title="Popular Movies" count={movies.length} />
       <MovieList movies={movies} isLoading={isLoading} />
-      <a className="action-btn">
-        <p className="more" onClick={onPageChange}>
+      <div className="load-more">
+        <a className="load-more-link" onClick={onPageChange}>
           more{" "}
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -61,8 +61,8 @@ const PopularMovies: React.FC = () => {
             className="size-6">
             <path strokeLinecap="round" strokeLinejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
           </svg>
-        </p>
-      </a>
+        </a>
+      </div>
     </div>
   );
 };
