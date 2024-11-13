@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Link } from "react-router-dom";
 
 interface DropdownItem {
@@ -15,7 +16,7 @@ interface DropdownProps {
 const Dropdown: React.FC<DropdownProps> = ({ profileImage, items }) => {
   return (
     <div className="dropdown">
-      <a href="#" className="d-block dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+      <a role="button" className="d-block dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
         <img src={profileImage} alt="user-profile-image" width="30" height="30" className="rounded-circle" />
       </a>
       <ul className="dropdown-menu">

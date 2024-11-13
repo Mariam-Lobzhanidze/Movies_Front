@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { useAuth } from "../../context/authContext";
 import MobileNav from "./mobileNav";
 import Dropdown from "./dropdown";
@@ -16,29 +16,28 @@ const Header: React.FC = () => {
   return (
     <header className="p-4 border-bottom ">
       <div className="container d-flex align-items-center justify-content-between">
-        <div className="d-flex gap-2 align-items-center">
+        <div className="d-flex gap-4 align-items-center">
           <Link to="/" className="me-4 navbar-brand fs-5 fw-bold">
             Movies
           </Link>
           <ul className="nav d-none d-lg-flex gap-1 align-items-center">
             <li>
-              <Link to={`/movies/favorites`} className="nav-link px-2">
+              <NavLink
+                to={`/movies/favorites`}
+                className={({ isActive }) => `nav-link px-2 ${isActive ? "active" : ""}`}>
                 Favorites
-              </Link>
+              </NavLink>
             </li>
             <li>
-              <Link to={`/movies/watchlist`} className="nav-link px-2">
+              <NavLink
+                to={`/movies/watchlist`}
+                className={({ isActive }) => `nav-link px-2 ${isActive ? "active" : ""}`}>
                 Watchlist
-              </Link>
+              </NavLink>
             </li>
           </ul>
         </div>
 
-        <i
-          data-bs-toggle="offcanvas"
-          data-bs-target="#offcanvas"
-          className="bi bi-list fs-3 d-lg-none d-flex"
-          role="button"></i>
         <MobileNav />
 
         <div className="d-none d-lg-flex gap-3 align-items-center">

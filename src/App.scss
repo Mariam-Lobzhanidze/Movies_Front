@@ -6,11 +6,8 @@ $table-header-color: #fff;
 $nav-link-color: #fff;
 
 @import "../node_modules/bootstrap";
-@import "./custom.scss";
 
-.offcanvas-header .btn-close {
-  color: $body-color !important;
-}
+@import "./custom.scss";
 
 .table thead th {
   color: $table-header-color;
@@ -30,6 +27,10 @@ header .dropdown-toggle::after {
 
 a {
   text-decoration: none;
+}
+
+.nav-link.active {
+  color: $primary;
 }
 
 .dropdown-item:hover {

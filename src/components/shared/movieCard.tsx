@@ -123,7 +123,7 @@ const MovieCard: React.FC<MovieCardProps> = ({ movie, isLoading }) => {
           </div>
           <div className="card-title">
             <div className="movie-info">
-              <h3>{truncateText(title, 14)}</h3>
+              <h3>{truncateText(title, 12)}</h3>
               <Rating vote={vote_average} />
             </div>
 

@@ -31,11 +31,11 @@ const SwiperSlider: React.FC<SwiperProps> = ({ items, slidesPerView = 4, cardVie
         },
         768: {
           slidesPerView: 3,
-          spaceBetween: 30,
+          spaceBetween: 20,
         },
         1100: {
           slidesPerView: slidesPerView,
-          spaceBetween: 30,
+          spaceBetween: 20,
         },
       }}>
       {items.map((item) => (

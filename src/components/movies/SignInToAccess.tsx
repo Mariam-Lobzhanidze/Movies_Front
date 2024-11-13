@@ -46,7 +46,7 @@ const SignInToAccess: React.FC<SignInToAccessProps> = ({ title }) => {
             d="M36 3H12C9.79086 3 8 4.79086 8 7V42L24 33L40 42V7C40 4.79086 38.2091 3 36 3Z"
             fill="#333"
           />
-          <path d="M24 13.5V22.5M19.5 18H28.5" stroke="#ffffff" stroke-width="3" stroke-linecap="round" />
+          <path d="M24 13.5V22.5M19.5 18H28.5" stroke="#ffffff" strokeWidth="3" strokeLinecap="round" />
         </svg>
 
         <p className="sign-in-to-access-info-text">

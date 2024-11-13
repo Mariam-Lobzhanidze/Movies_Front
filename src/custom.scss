@@ -99,10 +99,8 @@ $tertiary-color: #f5c518;
 
 .movie-list {
   min-height: 1000px;
-  margin: 0 auto;
-
+  margin: 0px auto 30px;
   @include grid-container();
-  margin-bottom: 30px;
 }
 
 .movie {
