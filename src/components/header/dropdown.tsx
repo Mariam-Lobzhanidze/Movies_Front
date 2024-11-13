@@ -23,7 +23,7 @@ const Dropdown: React.FC<DropdownProps> = ({ profileImage, items }) => {
         {items
           .filter((item) => item.visible !== false)
           .map((item, index) => (
-            <li key={index}>
+            <li data-bs-dismiss="offcanvas" data-bs-target="#offcanvas" key={index}>
               <Link
                 className="dropdown-item"
                 to={item.href || "#"}

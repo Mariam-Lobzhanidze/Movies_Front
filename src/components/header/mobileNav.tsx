@@ -59,6 +59,16 @@ const MobileNav: React.FC = () => {
               data-bs-target="#offcanvas"
               aria-controls="offcanvas"
               className="nav-item">
+              <NavLink to={`/home`} className={({ isActive }) => `nav-link px-2 ${isActive ? "active" : ""}`}>
+                Home
+              </NavLink>
+            </li>
+
+            <li
+              data-bs-dismiss="offcanvas"
+              data-bs-target="#offcanvas"
+              aria-controls="offcanvas"
+              className="nav-item">
               <NavLink
                 to={`/movies/favorites`}
                 className={({ isActive }) => `nav-link px-2 ${isActive ? "active" : ""}`}>
@@ -82,13 +92,19 @@ const MobileNav: React.FC = () => {
           <hr />
 
           {!isLoggedIn ? (
-            <div className="d-lg-none d-flex gap-3 ">
-              <Link to="/register" role="button" className="btn btn-sm btn-secondary">
-                Register
-              </Link>
-              <Link to="/login" role="button" className="btn btn-sm btn-primary">
-                Login
-              </Link>
+            <div>
+              <ul className="d-lg-none d-flex gap-3 list-unstyled">
+                <li data-bs-dismiss="offcanvas" data-bs-target="#offcanvas" aria-controls="offcanvas">
+                  <Link to="/register" role="button" className="btn btn-sm btn-secondary">
+                    Register
+                  </Link>
+                </li>
+                <li data-bs-dismiss="offcanvas" data-bs-target="#offcanvas" aria-controls="offcanvas">
+                  <Link to="/login" role="button" className="btn btn-sm btn-primary">
+                    Login
+                  </Link>
+                </li>
+              </ul>
             </div>
           ) : (
             <div className="d-flex align-items-center justify-content-between">
