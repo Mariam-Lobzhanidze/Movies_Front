@@ -17,9 +17,11 @@ httpClient.interceptors.request.use((config) => {
 httpClient.interceptors.response.use(
   (response) => response,
   (error) => {
-    if (error.response && error.response.status === 401) {
-      alert("Session has expired. Please log in again.");
-
+    if (
+      error.response &&
+      error.response.status === 401 &&
+      error.response.data.message === "Token has expired. Please log in again."
+    ) {
       localStorage.removeItem("authToken");
       localStorage.removeItem("activeUser");
       window.location.href = "/login";
