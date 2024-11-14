@@ -30,7 +30,8 @@ const TrailerPage: React.FC = () => {
       ]);
 
       const trailerKey =
-        trailerResponse.data.results.find((item: { type: string }) => item.type === "Trailer").key || null;
+        trailerResponse?.data?.results.find((item: { type: string }) => item?.type === "Trailer")?.key ||
+        null;
 
       const companies = detailsResponse.data.production_companies.map((company: Company) => ({
         logo_path: `${IMAGE_BASE_URL}${company.logo_path}`,
@@ -42,12 +43,11 @@ const TrailerPage: React.FC = () => {
         trailerKey,
         images: imagesResponse.data,
         similarMovies: similarResponse.data,
-        poster_image: imagesResponse.data[0].file_path,
+        poster_image: imagesResponse.data[0]?.file_path,
         production_Companies: companies,
       });
 
       setIsLoading(false);
-      console.log(movieData);
     } catch (error) {
       console.error("Error getting movie data:", error);
     }
@@ -82,16 +82,24 @@ const TrailerPage: React.FC = () => {
   return (
     <div className="trailer-page">
       <div className="trailer">
-        <div className="trailer-video">
-          {movieData?.trailerKey ? <YouTube videoId={movieData.trailerKey} opts={opts} /> : <p></p>}
+        <div className="trailer-video position-relative">
+          {movieData?.trailerKey ? (
+            <YouTube videoId={movieData?.trailerKey} opts={opts} />
+          ) : (
+            <p className="no-trailer-available">The trailer is not available</p>
+          )}
         </div>
+
         <div className="trailer-details">
           <div className="trailer-details-header">
-            <div className="poster-img-container">
-              <img src={`${IMAGE_BASE_URL}w300${movieData?.poster_image}`} alt="poster_img" />
-            </div>
+            {movieData?.images && movieData.images.length > 0 && (
+              <div className="poster-img-container">
+                <img src={`${IMAGE_BASE_URL}w300${movieData?.poster_image}`} alt="poster_img" />
+              </div>
+            )}
+
             <div className="details-text">
-              <h4 className="details-text-title">{movieData?.details.title}</h4>
+              <h4 className="details-text-title">{movieData?.details?.title}</h4>
               <p className="details-text-genre">{getMovieGenres()}</p>
             </div>
           </div>
@@ -109,9 +117,12 @@ const TrailerPage: React.FC = () => {
       <SimilarMovies similarMovies={movieData?.similarMovies || []} />
 
       <MovieProductionCompanies companies={movieData?.production_Companies} />
-      <div className="posters-slider">
-        <ImageGalleryComponent title="Posters" images={getMovieImages()} thumbnail={false} />
-      </div>
+
+      {movieData?.images && movieData.images.length > 0 && (
+        <div className="posters-slider">
+          <ImageGalleryComponent title="Posters" images={getMovieImages()} thumbnail={false} />
+        </div>
+      )}
     </div>
   );
 };

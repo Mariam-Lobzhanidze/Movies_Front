@@ -4,9 +4,38 @@ import MobileNav from "./mobileNav";
 import Dropdown from "./dropdown";
 import Search from "../shared/search";
 import profileImage from "../../assets/profile_default.jpg";
+import { useCallback, useState } from "react";
+import httpClient from "../../axios";
+import debounce from "lodash/debounce";
+import { Movie } from "../shared/types";
+import SearchedMovies from "../movies/SearchedMovies";
 
 const Header: React.FC = () => {
   const { isLoggedIn, handleLogout, activeUser } = useAuth();
+
+  const [searchQuery, setSearchQuery] = useState("");
+  const [searchedMovies, setSearchedMovies] = useState<Movie[]>([]);
+  const [showSearchResults, setShowSearchResults] = useState(false);
+
+  const handleSearchQueryChange = useCallback(
+    debounce(async (query: string) => {
+      setSearchQuery(query);
+
+      if (query) {
+        try {
+          const response = await httpClient.get(`/search`, { params: { query } });
+          setSearchedMovies(response.data.results);
+          setShowSearchResults(true);
+        } catch (error) {
+          console.error("Error fetching search results:", error);
+        }
+      } else {
+        setShowSearchResults(false);
+        setSearchedMovies([]);
+      }
+    }, 600),
+    []
+  );
 
   const dropdownItems = [
     { label: "AdminPage", href: "/adminPage", visible: activeUser?.role === "admin" },
@@ -14,51 +43,62 @@ const Header: React.FC = () => {
   ];
 
   return (
-    <header className="p-4 border-bottom ">
-      <div className="container d-flex align-items-center justify-content-between">
-        <div className="d-flex gap-4 align-items-center">
-          <Link to="/" className="me-4 navbar-brand fs-5 fw-bold">
-            Movies
-          </Link>
-          <ul className="nav d-none d-lg-flex gap-1 align-items-center">
-            <li>
-              <NavLink
-                to={`/movies/favorites`}
-                className={({ isActive }) => `nav-link px-2 ${isActive ? "active" : ""}`}>
-                Favorites
-              </NavLink>
-            </li>
-            <li>
-              <NavLink
-                to={`/movies/watchlist`}
-                className={({ isActive }) => `nav-link px-2 ${isActive ? "active" : ""}`}>
-                Watchlist
-              </NavLink>
-            </li>
-          </ul>
+    <header className="p-3 position-relative">
+      <div className="container d-flex flex-column flex-lg-row align-items-center gap-3">
+        <div className="d-flex align-items-center justify-content-between w-100">
+          <div className="d-flex gap-4 align-items-center">
+            <NavLink to="/" className="me-4 navbar-brand fs-5 fw-bold">
+              Movies
+            </NavLink>
+            <ul className="nav d-none d-lg-flex gap-1 align-items-center">
+              <li>
+                <NavLink
+                  to={`/movies/favorites`}
+                  className={({ isActive }) => `nav-link px-2 ${isActive ? "active" : ""}`}>
+                  Favorites
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  to={`/movies/watchlist`}
+                  className={({ isActive }) => `nav-link px-2 ${isActive ? "active" : ""}`}>
+                  Watchlist
+                </NavLink>
+              </li>
+            </ul>
+          </div>
+
+          <MobileNav />
+
+          <div className="gap-3 d-none d-lg-flex align-items-center">
+            {!isLoggedIn ? (
+              <div className="d-none d-lg-flex gap-3 ">
+                <Link to="/register" role="button" className="btn btn-sm btn-secondary">
+                  Register
+                </Link>
+                <Link to="/login" role="button" className="btn btn-sm btn-primary">
+                  Login
+                </Link>
+              </div>
+            ) : (
+              <Dropdown profileImage={profileImage} items={dropdownItems} />
+            )}
+          </div>
         </div>
 
-        <MobileNav />
+        <div className="d-block mobile-search">
+          <Search onSearchQueryChange={handleSearchQueryChange} />
 
-        <div className="d-none d-lg-flex gap-3 align-items-center">
-          <Search />
-
-          {!isLoggedIn ? (
-            <div className="d-none d-lg-flex gap-3 ">
-              <Link to="/register" role="button" className="btn btn-sm btn-secondary">
-                Register
-              </Link>
-              <Link to="/login" role="button" className="btn btn-sm btn-primary">
-                Login
-              </Link>
-            </div>
-          ) : (
-            <Dropdown profileImage={profileImage} items={dropdownItems} />
+          {searchQuery && searchedMovies.length > 0 && (
+            <SearchedMovies
+              show={showSearchResults}
+              movies={searchedMovies}
+              onClose={() => {
+                setShowSearchResults(false);
+              }}
+            />
           )}
         </div>
-      </div>
-      <div className="container d-lg-none d-block mt-4">
-        <Search />
       </div>
     </header>
   );

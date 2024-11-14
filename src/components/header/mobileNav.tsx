@@ -14,7 +14,7 @@ const MobileNav: React.FC = () => {
   return (
     <div>
       <a
-        className="btn btn-primary bg-transparent border-0 text-light d-lg-none d-flex"
+        className="btn btn-primary bg-transparent border-0 text-light d-lg-none d-flex p-0"
         data-bs-toggle="offcanvas"
         href="#offcanvas"
         role="button"
@@ -22,12 +22,7 @@ const MobileNav: React.FC = () => {
         <i className="bi bi-list fs-3"></i>
       </a>
 
-      <div
-        className="offcanvas offcanvas-start"
-        data-bs-backdrop="false"
-        aria-labelledby="offcanvas"
-        tabIndex={-1}
-        id="offcanvas">
+      <div className="offcanvas offcanvas-start" aria-labelledby="offcanvas" tabIndex={-1} id="offcanvas">
         <div className="offcanvas-header d-flex justify-content-between align-items-center">
           <h5 className="offcanvas-title" id="offcanvasLabel">
             <ul className="nav">

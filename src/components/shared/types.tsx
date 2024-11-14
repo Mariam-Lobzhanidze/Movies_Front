@@ -43,8 +43,8 @@ export interface Movie {
   backdrop_path?: string;
   title: string;
   vote_average: number;
-  vote_count: number;
-  video: string;
+  vote_count?: number;
+  video?: string;
 }
 
 export interface MovieDetails {
