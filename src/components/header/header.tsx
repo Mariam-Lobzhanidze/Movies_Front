@@ -81,7 +81,7 @@ const Header: React.FC = () => {
                 </Link>
               </div>
             ) : (
-              <Dropdown profileImage={profileImage} items={dropdownItems} />
+              <Dropdown  items={dropdownItems} />
             )}
           </div>
         </div>

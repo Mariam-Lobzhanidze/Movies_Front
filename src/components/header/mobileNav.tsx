@@ -103,7 +103,7 @@ const MobileNav: React.FC = () => {
             </div>
           ) : (
             <div className="d-flex align-items-center justify-content-between">
-              <Dropdown profileImage={profileImage} items={dropdownItems} />
+              <Dropdown items={dropdownItems} />
             </div>
           )}
         </div>
