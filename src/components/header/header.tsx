@@ -3,7 +3,6 @@ import { useAuth } from "../../context/authContext";
 import MobileNav from "./mobileNav";
 import Dropdown from "./dropdown";
 import Search from "../shared/search";
-import profileImage from "../../assets/profile_default.jpg";
 import { useCallback, useState } from "react";
 import httpClient from "../../axios";
 import debounce from "lodash/debounce";
@@ -81,7 +80,7 @@ const Header: React.FC = () => {
                 </Link>
               </div>
             ) : (
-              <Dropdown  items={dropdownItems} />
+              <Dropdown items={dropdownItems} />
             )}
           </div>
         </div>

@@ -1,7 +1,6 @@
 import { Link, NavLink } from "react-router-dom";
 import { useAuth } from "../../context/authContext";
 import Dropdown from "./dropdown";
-import profileImage from "../../assets/profile_default.jpg";
 
 const MobileNav: React.FC = () => {
   const { isLoggedIn, handleLogout, activeUser } = useAuth();
