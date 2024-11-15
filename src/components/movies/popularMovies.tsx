@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
-import httpClient from "../../axios";
 import { Movie } from "../shared/types";
 import { useSearchParams } from "react-router-dom";
 import SectionTitle from "../shared/sectionTitle";
 import MovieList from "../shared/movieList";
+import { getPopularMovies } from "../../services/movieService";
+import { scrollToTop } from "../../utils/scrollToTop";
 
 const PopularMovies: React.FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -19,18 +20,7 @@ const PopularMovies: React.FC = () => {
   const getMovies = async () => {
     setIsLoading(true);
     try {
-      const response = await httpClient.get(`/popular?page=${currentPage}`);
-
-      const { results } = response.data;
-
-      const movieData = results.map((movie: Movie) => ({
-        id: movie.id,
-        poster_path: movie.poster_path,
-        title: movie.title,
-        overview: movie.overview,
-        vote_average: movie.vote_average,
-      }));
-
+      const movieData = await getPopularMovies(currentPage);
       setMovies(movieData);
 
       setTimeout(() => {
@@ -42,7 +32,7 @@ const PopularMovies: React.FC = () => {
   };
 
   const onPageChange = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    scrollToTop();
     setSearchParams({ page: (currentPage + 1).toString() });
   };
 

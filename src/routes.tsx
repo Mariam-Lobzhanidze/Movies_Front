@@ -1,7 +1,6 @@
 import React, { Suspense } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import ProtectedRoute from "./protectedRoutes";
-import ScrollToTop from "./components/scrollToTop";
 import FavoriteMovies from "./components/movies/favorites";
 import Watchlist from "./components/movies/watchlist";
 
@@ -28,7 +27,6 @@ const protectedRoutes = [
 const AppRoutes: React.FC = () => {
   return (
     <Suspense fallback={<p></p>}>
-      <ScrollToTop />
       <Routes>
         {publicRoutes.map((route) => (
           <Route key={route.path} path={route.path} element={route.element} />

@@ -60,6 +60,7 @@ const AdminPage: React.FC = () => {
     try {
       const endpoint = status === "blocked" ? "/users/block" : "/users/unblock";
       await Promise.all(selectedUsers.map((id) => httpClient.put(`${endpoint}/${id}`)));
+
       updateUsersState("status", status);
 
       if (selectedUsers.includes(activeUser?.id as string)) {
@@ -67,16 +68,6 @@ const AdminPage: React.FC = () => {
       }
     } catch (error) {
       console.error(`Error updating users to ${status}:`, error);
-    }
-  };
-
-  const deleteUsers = async () => {
-    try {
-      await Promise.all(selectedUsers.map((id) => httpClient.delete(`/users/${id}`)));
-      setUsers((prevUsers) => prevUsers.filter((user) => !selectedUsers.includes(user.id)));
-      setSelectedUsers([]);
-    } catch (error) {
-      console.error("Error deleting users:", error);
     }
   };
 
@@ -90,6 +81,16 @@ const AdminPage: React.FC = () => {
       }
     } catch (error) {
       console.error("Error changing user role:", error);
+    }
+  };
+
+  const deleteUsers = async () => {
+    try {
+      await Promise.all(selectedUsers.map((id) => httpClient.delete(`/users/${id}`)));
+      setUsers((prevUsers) => prevUsers.filter((user) => !selectedUsers.includes(user.id)));
+      setSelectedUsers([]);
+    } catch (error) {
+      console.error("Error deleting users:", error);
     }
   };
 

@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/authContext";
 import SectionTitle from "../shared/sectionTitle";
@@ -28,7 +27,7 @@ const SignInToAccess: React.FC<SignInToAccessProps> = ({ title }) => {
     window.scrollTo(0, 0);
   };
 
-  if (activeUser?.id) {
+  if (activeUser?.id && movies.length > 0) {
     return (
       <div className="section">
         <SectionTitle title={title} count={movies.length} />

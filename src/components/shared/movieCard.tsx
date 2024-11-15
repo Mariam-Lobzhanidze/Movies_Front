@@ -4,8 +4,14 @@ import { truncateText } from "../../utils/trunctate";
 import CardSkeleton from "./cardSkeleton";
 import Rating from "./rating";
 import { useAuth } from "../../context/authContext";
-import httpClient from "../../axios";
 import { useEffect, useState } from "react";
+
+import {
+  addFavorite,
+  addToWatchlist,
+  removeFavorite,
+  removeFromWatchlist,
+} from "../../services/movieService";
 
 interface MovieCardProps {
   movie: Movie;
@@ -24,17 +30,8 @@ const MovieCard: React.FC<MovieCardProps> = ({ movie, isLoading }) => {
 
   useEffect(() => {
     if (activeUser) {
-      if (activeUser?.favorites?.some((item) => item.id === movie.id)) {
-        setIsFavorited(true);
-      } else {
-        setIsFavorited(false);
-      }
-
-      if (activeUser?.watchlist?.some((item) => item.id === movie.id)) {
-        setIsInWatchList(true);
-      } else {
-        setIsInWatchList(false);
-      }
+      setIsFavorited(activeUser.favorites.some((item) => item.id === movie.id));
+      setIsInWatchList(activeUser.watchlist.some((item) => item.id === movie.id));
     }
   }, [activeUser, movie.id]);
 
@@ -44,13 +41,7 @@ const MovieCard: React.FC<MovieCardProps> = ({ movie, isLoading }) => {
 
   const toggleFavorite = async (e: React.MouseEvent) => {
     e.stopPropagation();
-    if (!activeUser) {
-      navigate("/login");
-      window.scrollTo(0, 0);
-    }
-
-    if (!activeUser || !activeUser.favorites) {
-      console.error("Active user is not available or does not have a favorites list.");
+    if (!activeUser || movie.id === undefined) {
       return;
     }
 
@@ -58,21 +49,14 @@ const MovieCard: React.FC<MovieCardProps> = ({ movie, isLoading }) => {
       let updatedFavorites: Movie[];
 
       if (isFavorited) {
-        await httpClient.delete(`/favorites/remove?userId=${activeUser.id}&movieId=${movie.id}`);
+        await removeFavorite(activeUser.id, movie.id);
         updatedFavorites = activeUser.favorites.filter((item) => item.id !== movie.id);
       } else {
-        await httpClient.post("/favorites/add", { userId: activeUser.id, movieId: movie.id });
-
-        if (movie.id === undefined) {
-          console.error("Movie ID is undefined.");
-          return;
-        }
-
+        await addFavorite(activeUser.id, movie.id);
         updatedFavorites = [...activeUser.favorites, movie];
       }
 
       updateActiveUser({ favorites: updatedFavorites });
-      setIsFavorited(!isFavorited);
     } catch (error) {
       console.error("Error toggling favorite:", error);
     }
@@ -80,14 +64,7 @@ const MovieCard: React.FC<MovieCardProps> = ({ movie, isLoading }) => {
 
   const toggleWatchlist = async (e: React.MouseEvent) => {
     e.stopPropagation();
-
-    if (!activeUser) {
-      navigate("/login");
-      window.scrollTo(0, 0);
-    }
-
-    if (!activeUser || !activeUser.watchlist) {
-      console.error("Active user is not available or does not have a watchlist.");
+    if (!activeUser || movie.id === undefined) {
       return;
     }
 
@@ -95,16 +72,10 @@ const MovieCard: React.FC<MovieCardProps> = ({ movie, isLoading }) => {
       let updatedWatchlist: Movie[];
 
       if (isInWatchList) {
-        await httpClient.delete(`/watchlist/remove?userId=${activeUser.id}&movieId=${movie.id}`);
+        await removeFromWatchlist(activeUser.id, movie.id);
         updatedWatchlist = activeUser.watchlist.filter((item) => item.id !== movie.id);
       } else {
-        await httpClient.post("/watchlist/add", { userId: activeUser.id, movieId: movie.id });
-
-        if (movie.id === undefined) {
-          console.error("Movie ID is undefined.");
-          return;
-        }
-
+        await addToWatchlist(activeUser.id, movie.id);
         updatedWatchlist = [...activeUser.watchlist, movie];
       }
 
@@ -126,44 +97,47 @@ const MovieCard: React.FC<MovieCardProps> = ({ movie, isLoading }) => {
               <h3>{truncateText(title, 12)}</h3>
               <Rating vote={vote_average} />
             </div>
-
-            <span className="favorite-icon" onClick={toggleFavorite}>
-              {isFavorited ? (
-                <i className="bi bi-heart-fill" style={{ color: "red" }}></i>
-              ) : (
-                <i className="bi bi-heart"></i>
-              )}
-            </span>
-          </div>
-
-          <div className="watchlist-btn" onClick={toggleWatchlist}>
-            {!isInWatchList ? (
-              <button type="button" className="btn btn-dark btn-sm text-primary">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  fill="#28b6cf"
-                  viewBox="0 0 256 256">
-                  <path d="M208,32H48A16,16,0,0,0,32,48V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V48A16,16,0,0,0,208,32ZM168,136H136v32a8,8,0,0,1-16,0V136H88a8,8,0,0,1,0-16h32V88a8,8,0,0,1,16,0v32h32a8,8,0,0,1,0,16Z"></path>
-                </svg>
-                Watchlist
-              </button>
-            ) : (
-              <button type="button" className="btn btn-dark btn-sm text-primary">
-                {" "}
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  fill="#28b6cf"
-                  viewBox="0 0 256 256">
-                  <path d="M208,32H48A16,16,0,0,0,32,48V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V48A16,16,0,0,0,208,32ZM168,136H88a8,8,0,0,1,0-16h80a8,8,0,0,1,0,16Z"></path>
-                </svg>{" "}
-                Watchlist
-              </button>
+            {activeUser && (
+              <span className="favorite-icon" onClick={toggleFavorite}>
+                {isFavorited ? (
+                  <i className="bi bi-heart-fill" style={{ color: "red" }}></i>
+                ) : (
+                  <i className="bi bi-heart"></i>
+                )}
+              </span>
             )}
           </div>
+
+          {activeUser && (
+            <div className="watchlist-btn" onClick={toggleWatchlist}>
+              {!isInWatchList ? (
+                <button type="button" className="btn btn-dark btn-sm text-primary">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    fill="#28b6cf"
+                    viewBox="0 0 256 256">
+                    <path d="M208,32H48A16,16,0,0,0,32,48V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V48A16,16,0,0,0,208,32ZM168,136H136v32a8,8,0,0,1-16,0V136H88a8,8,0,0,1,0-16h32V88a8,8,0,0,1,16,0v32h32a8,8,0,0,1,0,16Z"></path>
+                  </svg>
+                  Watchlist
+                </button>
+              ) : (
+                <button type="button" className="btn btn-dark btn-sm text-primary">
+                  {" "}
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    fill="#28b6cf"
+                    viewBox="0 0 256 256">
+                    <path d="M208,32H48A16,16,0,0,0,32,48V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V48A16,16,0,0,0,208,32ZM168,136H88a8,8,0,0,1,0-16h80a8,8,0,0,1,0,16Z"></path>
+                  </svg>{" "}
+                  Watchlist
+                </button>
+              )}
+            </div>
+          )}
         </div>
       ) : (
         <CardSkeleton />

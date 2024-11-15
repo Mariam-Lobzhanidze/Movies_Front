@@ -4,10 +4,11 @@ import MobileNav from "./mobileNav";
 import Dropdown from "./dropdown";
 import Search from "../shared/search";
 import { useCallback, useState } from "react";
-import httpClient from "../../axios";
 import debounce from "lodash/debounce";
 import { Movie } from "../shared/types";
 import SearchedMovies from "../movies/SearchedMovies";
+import { getDropdownItems } from "../../constants/navDropdownItems";
+import { searchMovies } from "../../services/movieService";
 
 const Header: React.FC = () => {
   const { isLoggedIn, handleLogout, activeUser } = useAuth();
@@ -22,8 +23,8 @@ const Header: React.FC = () => {
 
       if (query) {
         try {
-          const response = await httpClient.get(`/search`, { params: { query } });
-          setSearchedMovies(response.data.results);
+          const results = await searchMovies(query);
+          setSearchedMovies(results);
           setShowSearchResults(true);
         } catch (error) {
           console.error("Error fetching search results:", error);
@@ -36,10 +37,7 @@ const Header: React.FC = () => {
     []
   );
 
-  const dropdownItems = [
-    { label: "AdminPage", href: "/adminPage", visible: activeUser?.role === "admin" },
-    { label: "Sign out", onClick: handleLogout },
-  ];
+  const dropdownItems = getDropdownItems(activeUser, handleLogout);
 
   return (
     <header className="p-3 position-relative">

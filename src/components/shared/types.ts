@@ -37,8 +37,8 @@ export interface UsersData {
 
 // movie interface section
 export interface Movie {
-  id?: number;
-  overview?: string;
+  id: string;
+  overview: string;
   poster_path: string;
   backdrop_path?: string;
   title: string;
@@ -174,13 +174,11 @@ export interface MovieData {
   images: ImageDetails[];
   similarMovies: Movie[];
   reviews?: MovieReviews;
-  //
+
   poster_image?: string;
   tagline?: string;
   production_Companies?: Company[];
 }
-
-//
 
 export interface Company {
   logo_path?: string;

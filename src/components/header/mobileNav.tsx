@@ -1,14 +1,12 @@
 import { Link, NavLink } from "react-router-dom";
 import { useAuth } from "../../context/authContext";
 import Dropdown from "./dropdown";
+import { getDropdownItems } from "../../constants/navDropdownItems";
 
 const MobileNav: React.FC = () => {
   const { isLoggedIn, handleLogout, activeUser } = useAuth();
 
-  const dropdownItems = [
-    { label: "AdminPage", href: "/adminPage", visible: activeUser?.role === "admin" },
-    { label: "Sign out", onClick: handleLogout },
-  ];
+  const dropdownItems = getDropdownItems(activeUser, handleLogout);
 
   return (
     <div>
