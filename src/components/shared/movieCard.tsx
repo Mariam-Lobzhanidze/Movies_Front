@@ -18,7 +18,7 @@ interface MovieCardProps {
   isLoading?: boolean;
 }
 
-const MovieCard: React.FC<MovieCardProps> = ({ movie, isLoading }) => {
+const MovieCard: React.FC<MovieCardProps> = ({ movie, isLoading = true }) => {
   const IMAGE_BASE_URL = import.meta.env.VITE_APP_IMAGE_BASE_URL;
   const { title, poster_path, vote_average } = movie;
 
