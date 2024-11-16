@@ -36,9 +36,7 @@ export const getMovieDetails = async (id: string) => {
 
 export const getMovieTrailer = async (id: string) => {
   const response = await httpClient.get(`/movies/${id}/trailer`);
-  const trailerKey =
-    response?.data?.results.find((item: { type: string }) => item?.type === "Trailer")?.key || null;
-  return trailerKey;
+  return response?.data?.trailerKey || null;
 };
 
 export const getImages = async (id: string) => {

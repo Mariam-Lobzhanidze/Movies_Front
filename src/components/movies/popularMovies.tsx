@@ -38,7 +38,7 @@ const PopularMovies: React.FC = () => {
 
   return (
     <div className="popular-movies section">
-      <SectionTitle title="Popular Movies" count={movies.length} />
+      <SectionTitle title="Popular Movies" count={movies.length || null} />
       <MovieList movies={movies} isLoading={isLoading} />
       <div className="load-more">
         <a className="load-more-link" onClick={onPageChange}>

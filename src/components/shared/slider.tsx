@@ -33,6 +33,10 @@ const SwiperSlider: React.FC<SwiperProps> = ({ items, slidesPerView = 4, cardVie
           slidesPerView: 3,
           spaceBetween: 20,
         },
+        900: {
+          slidesPerView: 4,
+          spaceBetween: 20,
+        },
         1100: {
           slidesPerView: slidesPerView,
           spaceBetween: 20,

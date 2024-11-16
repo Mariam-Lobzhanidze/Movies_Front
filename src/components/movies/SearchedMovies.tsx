@@ -23,15 +23,18 @@ const SearchedMovies: React.FC<SearchedMoviesProps> = ({ movies, show, onClose }
         .filter((movie) => movie.poster_path)
         .map((movie) => (
           <div key={movie.id} onClick={() => handleLinkClick(movie.id)} className="dropdown-item">
-            <img
-              src={
-                movie.poster_path
-                  ? `https://image.tmdb.org/t/p/w92${movie.poster_path}`
-                  : "https://via.placeholder.com/60x85?text=No+Image"
-              }
-              alt={movie.title}
-              className="img"
-            />
+            <div className="img-wrapper">
+              <div className="img placeholder placeholder-wave bg-secondary w-100 h-100 rounded"></div>
+
+              <img
+                src={`https://image.tmdb.org/t/p/w92${movie.poster_path}`}
+                alt={movie.title}
+                className="img"
+                onLoad={(e) => {
+                  (e.target as HTMLImageElement).previousElementSibling!.classList.add("d-none");
+                }}
+              />
+            </div>
             <span className="ms-2">{truncateText(movie.title, 20)}</span>
           </div>
         ))}

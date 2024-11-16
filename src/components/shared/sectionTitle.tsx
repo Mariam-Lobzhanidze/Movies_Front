@@ -1,6 +1,6 @@
 interface SectionTitleProps {
   title: string;
-  count?: number;
+  count?: number | null;
 }
 
 const SectionTitle: React.FC<SectionTitleProps> = ({ title, count }) => {
