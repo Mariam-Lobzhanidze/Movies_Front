@@ -10,7 +10,7 @@ const MovieProductionCompanies: React.FC<MovieProductionCompaniesProps> = ({ com
     <div className="section production-companies">
       <SectionTitle title="Production companies" count={companies?.length} />
       {companies?.map((company) => (
-        <div key={company.id || company.name} className="production-company">
+        <div key={`${company.id}-${company.name}`} className="production-company">
           <span className="company-name">{company.name}</span>
         </div>
       ))}

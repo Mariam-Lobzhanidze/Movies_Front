@@ -13,7 +13,7 @@ $tertiary-color: #f5c518;
   display: grid;
   gap: $gap;
   grid-template-columns: repeat(auto-fill, minmax($min, 1fr));
-  grid-template-rows: auto;
+  grid-template-rows: min-content;
   align-items: start;
 }
 

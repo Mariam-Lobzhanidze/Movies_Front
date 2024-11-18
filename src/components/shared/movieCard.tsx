@@ -1,7 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { Movie } from "./types";
 import { truncateText } from "../../utils/trunctate";
-import CardSkeleton from "./cardSkeleton";
 import Rating from "./rating";
 import { useAuth } from "../../context/authContext";
 import { useEffect, useState } from "react";
@@ -12,13 +11,13 @@ import {
   removeFavorite,
   removeFromWatchlist,
 } from "../../services/movieService";
+import { scrollToTop } from "../../utils/scrollToTop";
 
 interface MovieCardProps {
   movie: Movie;
-  isLoading?: boolean;
 }
 
-const MovieCard: React.FC<MovieCardProps> = ({ movie, isLoading }) => {
+const MovieCard: React.FC<MovieCardProps> = ({ movie }) => {
   const IMAGE_BASE_URL = import.meta.env.VITE_APP_IMAGE_BASE_URL;
   const { title, poster_path, vote_average } = movie;
 
@@ -37,6 +36,7 @@ const MovieCard: React.FC<MovieCardProps> = ({ movie, isLoading }) => {
 
   const handleCardClick = () => {
     navigate(`/movies/trailer/${movie.id}`);
+    scrollToTop();
   };
 
   const toggleFavorite = async (e: React.MouseEvent) => {
@@ -87,60 +87,55 @@ const MovieCard: React.FC<MovieCardProps> = ({ movie, isLoading }) => {
 
   return (
     <div className="movie" onClick={handleCardClick} key={movie.id}>
-      {!isLoading ? (
-        <div>
-          <div className="poster-container">
-            <img src={`${IMAGE_BASE_URL}w500${poster_path}`} alt={title} />
+      <div>
+        <div className="poster-container">
+          <img loading="lazy" src={`${IMAGE_BASE_URL}w342${poster_path}`} alt={title} />
+        </div>
+        <div className="card-title">
+          <div className="movie-info">
+            <h3>{truncateText(title, 12)}</h3>
+            <Rating vote={vote_average} />
           </div>
-          <div className="card-title">
-            <div className="movie-info">
-              <h3>{truncateText(title, 12)}</h3>
-              <Rating vote={vote_average} />
-            </div>
-            {activeUser && (
-              <span className="favorite-icon" onClick={toggleFavorite}>
-                {isFavorited ? (
-                  <i className="bi bi-heart-fill" style={{ color: "red" }}></i>
-                ) : (
-                  <i className="bi bi-heart"></i>
-                )}
-              </span>
-            )}
-          </div>
-
           {activeUser && (
-            <div className="watchlist-btn" onClick={toggleWatchlist}>
-              {!isInWatchList ? (
-                <button type="button" className="btn btn-dark btn-sm text-primary">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="16"
-                    height="16"
-                    fill="#28b6cf"
-                    viewBox="0 0 256 256">
-                    <path d="M208,32H48A16,16,0,0,0,32,48V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V48A16,16,0,0,0,208,32ZM168,136H136v32a8,8,0,0,1-16,0V136H88a8,8,0,0,1,0-16h32V88a8,8,0,0,1,16,0v32h32a8,8,0,0,1,0,16Z"></path>
-                  </svg>
-                  Watchlist
-                </button>
+            <span className="favorite-icon" onClick={toggleFavorite}>
+              {isFavorited ? (
+                <i className="bi bi-heart-fill" style={{ color: "red" }}></i>
               ) : (
-                <button type="button" className="btn btn-dark btn-sm text-primary">
-                  {" "}
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="16"
-                    height="16"
-                    fill="#28b6cf"
-                    viewBox="0 0 256 256">
-                    <path d="M208,32H48A16,16,0,0,0,32,48V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V48A16,16,0,0,0,208,32ZM168,136H88a8,8,0,0,1,0-16h80a8,8,0,0,1,0,16Z"></path>
-                  </svg>{" "}
-                  Watchlist
-                </button>
+                <i className="bi bi-heart"></i>
               )}
-            </div>
+            </span>
           )}
         </div>
-      ) : (
-        <CardSkeleton />
+      </div>
+      {activeUser && (
+        <div className="watchlist-btn" onClick={toggleWatchlist}>
+          {!isInWatchList ? (
+            <button type="button" className="btn btn-dark btn-sm text-primary">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                fill="#28b6cf"
+                viewBox="0 0 256 256">
+                <path d="M208,32H48A16,16,0,0,0,32,48V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V48A16,16,0,0,0,208,32ZM168,136H136v32a8,8,0,0,1-16,0V136H88a8,8,0,0,1,0-16h32V88a8,8,0,0,1,16,0v32h32a8,8,0,0,1,0,16Z"></path>
+              </svg>
+              Watchlist
+            </button>
+          ) : (
+            <button type="button" className="btn btn-dark btn-sm text-primary">
+              {" "}
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                fill="#28b6cf"
+                viewBox="0 0 256 256">
+                <path d="M208,32H48A16,16,0,0,0,32,48V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V48A16,16,0,0,0,208,32ZM168,136H88a8,8,0,0,1,0-16h80a8,8,0,0,1,0,16Z"></path>
+              </svg>{" "}
+              Watchlist
+            </button>
+          )}
+        </div>
       )}
     </div>
   );
