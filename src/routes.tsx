@@ -3,8 +3,8 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import ProtectedRoute from "./protectedRoutes";
 import FavoriteMovies from "./components/movies/favorites";
 import Watchlist from "./components/movies/watchlist";
+import Home from "./components/home/homePage";
 
-const Home = React.lazy(() => import("./components/home/homePage"));
 const Login = React.lazy(() => import("./components/auth/login"));
 const Register = React.lazy(() => import("./components/auth/register"));
 const AdminPage = React.lazy(() => import("./components/admin/adminPage"));
