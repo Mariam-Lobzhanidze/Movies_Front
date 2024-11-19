@@ -45,7 +45,7 @@ const Header: React.FC = () => {
         <div className="d-flex align-items-center justify-content-between w-100">
           <div className="d-flex gap-4 align-items-center">
             <NavLink to="/" className="me-4 navbar-brand fs-5 fw-bold">
-              Movies
+              Filmio.
             </NavLink>
             <ul className="nav d-none d-lg-flex gap-1 align-items-center">
               <li>

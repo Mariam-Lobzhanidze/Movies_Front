@@ -25,7 +25,7 @@ const MobileNav: React.FC = () => {
             <ul className="nav">
               <li data-bs-dismiss="offcanvas" data-bs-target="#offcanvas" aria-controls="offcanvas">
                 <Link to="/" className="me-4 navbar-brand fs-5 fw-bold navbar-brand">
-                  Movies
+                  Filmio.
                 </Link>
               </li>
             </ul>
