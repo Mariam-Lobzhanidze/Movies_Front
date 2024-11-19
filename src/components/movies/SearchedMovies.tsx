@@ -2,6 +2,7 @@ import React from "react";
 import { Movie } from "../shared/types";
 import { useNavigate } from "react-router-dom";
 import { truncateText } from "../../utils/trunctate";
+import { scrollToTop } from "../../utils/scrollToTop";
 
 interface SearchedMoviesProps {
   show: boolean;
@@ -15,6 +16,7 @@ const SearchedMovies: React.FC<SearchedMoviesProps> = ({ movies, show, onClose }
   const handleLinkClick = (movieId: string | undefined) => {
     onClose();
     navigate(`/movies/trailer/${movieId}`);
+    scrollToTop();
   };
 
   return (
