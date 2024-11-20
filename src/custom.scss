@@ -29,13 +29,55 @@ $tertiary-color: #f5c518;
     width: 100%;
     overflow: hidden;
     aspect-ratio: 2 / 3;
-    min-height: $height;
+    position: relative;
 
-    img {
-      width: 100%;
+    .blur-load {
+      position: relative;
+      background-size: cover;
+      background-position: center;
+
       height: 100%;
-      object-fit: cover;
-      object-position: center;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+      }
+
+      img.main-image {
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        transition: opacity 0.5s ease-in-out;
+        position: relative;
+        z-index: 2;
+      }
+
+      img.main-image.loaded {
+        opacity: 1;
+      }
+
+      &::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background-color: #e0e0e0;
+        animation: pulse 2.5s infinite;
+        z-index: 1;
+      }
+    }
+
+    @keyframes pulse {
+      0% {
+        opacity: 0;
+      }
+      50% {
+        opacity: 0.1;
+      }
+      100% {
+        opacity: 0;
+      }
     }
   }
 
@@ -98,7 +140,6 @@ $tertiary-color: #f5c518;
 }
 
 .movie-list {
-  min-height: 1000px;
   margin: 0px auto 30px;
   @include grid-container();
 }

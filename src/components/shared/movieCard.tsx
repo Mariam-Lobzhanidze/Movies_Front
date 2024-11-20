@@ -18,6 +18,8 @@ interface MovieCardProps {
 }
 
 const MovieCard: React.FC<MovieCardProps> = ({ movie }) => {
+  const [isLoaded, setIsLoaded] = useState(false);
+
   const IMAGE_BASE_URL = import.meta.env.VITE_APP_IMAGE_BASE_URL;
   const { title, poster_path, vote_average } = movie;
 
@@ -89,7 +91,20 @@ const MovieCard: React.FC<MovieCardProps> = ({ movie }) => {
     <div className="movie" onClick={handleCardClick} key={movie.id}>
       <div>
         <div className="poster-container">
-          <img loading="lazy" src={`${IMAGE_BASE_URL}w342${poster_path}`} alt={title} />
+          <div
+            className="blur-load"
+            style={{
+              backgroundImage: `url(${IMAGE_BASE_URL}w45${poster_path})`,
+              filter: isLoaded ? "none" : "blur(10px)",
+            }}>
+            <img
+              className={`main-image ${isLoaded ? "loaded" : ""}`}
+              loading="lazy"
+              src={`${IMAGE_BASE_URL}w342${poster_path}`}
+              alt={title}
+              onLoad={() => setIsLoaded(true)}
+            />
+          </div>
         </div>
         <div className="card-title">
           <div className="movie-info">

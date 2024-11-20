@@ -25,7 +25,6 @@ const TrailerPage: React.FC = () => {
   const { activeUser, updateActiveUser } = useAuth();
 
   useEffect(() => {
-    console.log(activeUser?.watchlist.some((item) => item.id === id));
     getMovieData();
   }, [id]);
 

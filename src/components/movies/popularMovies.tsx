@@ -25,7 +25,7 @@ const PopularMovies: React.FC = () => {
 
       setTimeout(() => {
         setIsLoading(false);
-      }, 500);
+      }, 200);
     } catch (error) {
       console.error(error);
     }
@@ -33,7 +33,10 @@ const PopularMovies: React.FC = () => {
 
   const onPageChange = () => {
     scrollToTop();
-    setSearchParams({ page: (currentPage + 1).toString() });
+
+    setTimeout(() => {
+      setSearchParams({ page: (currentPage + 1).toString() });
+    }, 1200);
   };
 
   return (
