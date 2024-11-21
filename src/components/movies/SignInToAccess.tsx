@@ -52,7 +52,7 @@ const SignInToAccess: React.FC<SignInToAccessProps> = ({ title }) => {
             </svg>
             Watchlist is empty
           </p>
-          <span className="text-primary">Save movies to keep track of what you want to watch</span>
+          <span className="text-primary">Save movies to watch later</span>
         </div>
       </div>
     );
