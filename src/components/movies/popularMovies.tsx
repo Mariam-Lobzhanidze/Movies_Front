@@ -17,17 +17,22 @@ const PopularMovies: React.FC = () => {
     getMovies();
   }, [currentPage]);
 
+  useEffect(() => {
+    if (!searchParams.get("page")) {
+      setSearchParams({ page: "1" });
+    }
+  }, [searchParams]);
+
   const getMovies = async () => {
     setIsLoading(true);
     try {
       const movieData = await getPopularMovies(currentPage);
       setMovies(movieData);
-
-      setTimeout(() => {
-        setIsLoading(false);
-      }, 200);
     } catch (error) {
       console.error(error);
+      setTimeout(() => getMovies(), 2000);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -45,7 +50,7 @@ const PopularMovies: React.FC = () => {
       <MovieList movies={movies} isLoading={isLoading} />
       <div className="load-more">
         <a className="load-more-link" onClick={onPageChange}>
-          more{" "}
+          next{" "}
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
