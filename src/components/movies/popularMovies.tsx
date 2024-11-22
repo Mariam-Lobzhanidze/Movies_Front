@@ -14,20 +14,15 @@ const PopularMovies: React.FC = () => {
   const currentPage = parseInt(searchParams.get("page") || "1", 10);
 
   useEffect(() => {
-    if (!searchParams.get("page")) {
-      setSearchParams({ page: "1" });
-    } else {
-      getMovies();
-    }
-  }, [searchParams]);
+    getMovies();
+  }, [currentPage]);
 
   const getMovies = async () => {
     setIsLoading(true);
-    console.log("called");
+
     try {
       const movieData = await getPopularMovies(currentPage);
-      console.log(movieData);
-      console.log("inside called");
+
       setMovies(movieData);
     } catch (error) {
       console.error(error);
