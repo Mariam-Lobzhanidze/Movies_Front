@@ -5,7 +5,6 @@ import Footer from "./components/footer/footer";
 import { BrowserRouter } from "react-router-dom";
 import AppRoutes from "./routes";
 import { AuthProvider } from "./context/authContext";
-import httpClient from "./axios";
 
 function AppContent() {
   return (
@@ -22,17 +21,6 @@ function AppContent() {
 }
 
 function App() {
-  const warmUpServer = async () => {
-    try {
-      await httpClient.get(`/health`);
-      console.log("Server warmed up");
-    } catch (error) {
-      console.error("Failed to warm up server:", error);
-    }
-  };
-
-  warmUpServer();
-
   return (
     <BrowserRouter>
       <AuthProvider>
