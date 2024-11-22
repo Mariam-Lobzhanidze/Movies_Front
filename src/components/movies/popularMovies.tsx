@@ -25,6 +25,7 @@ const PopularMovies: React.FC = () => {
 
   const getMovies = async () => {
     setIsLoading(true);
+    console.log("called");
     try {
       const movieData = await getPopularMovies(currentPage);
       setMovies(movieData);
