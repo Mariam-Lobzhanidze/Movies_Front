@@ -16,7 +16,7 @@ export const getPopularMovies = async (page: number): Promise<Movie[]> => {
     const response = await httpClient.get(`/popular?page=${page}`);
     const { results } = response.data;
 
-    return results.map((movie: Movie) => ({
+    return results?.map((movie: Movie) => ({
       id: movie.id,
       poster_path: movie.poster_path,
       title: movie.title,

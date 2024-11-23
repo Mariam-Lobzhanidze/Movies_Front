@@ -14,7 +14,11 @@ const MoviesInTheatre: React.FC = () => {
   const getMoviesInTheatre = async () => {
     const movies = await getTheatreMovies();
 
-    const modified = movies.map((movie: Partial<Movie>) => ({
+    if (!movies.length) {
+      return;
+    }
+
+    const modified = movies?.map((movie: Partial<Movie>) => ({
       original: `${IMAGE_BASE_URL}original${movie.poster_path}`,
       thumbnail: `${IMAGE_BASE_URL}w300${movie.poster_path}`,
       originalHeight: 400,
