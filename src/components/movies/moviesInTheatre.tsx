@@ -14,7 +14,7 @@ const MoviesInTheatre: React.FC = () => {
   const getMoviesInTheatre = async () => {
     const movies = await getTheatreMovies();
 
-    if (!movies.length) {
+    if (!movies?.length) {
       return;
     }
 

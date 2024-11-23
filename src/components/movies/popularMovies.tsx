@@ -23,7 +23,7 @@ const PopularMovies: React.FC = () => {
     try {
       const movieData = await getPopularMovies(currentPage);
 
-      if (!movieData.length) {
+      if (!movieData?.length) {
         return;
       }
 
