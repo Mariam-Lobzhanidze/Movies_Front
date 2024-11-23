@@ -30,7 +30,7 @@ const PopularMovies: React.FC = () => {
       setMovies(movieData);
     } catch (error) {
       console.error(error);
-      setTimeout(() => getMovies(), 2000);
+      // setTimeout(() => getMovies(), 2000);
     } finally {
       setIsLoading(false);
     }
