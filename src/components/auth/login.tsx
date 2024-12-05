@@ -17,7 +17,10 @@ const Login: React.FC = () => {
   const { login } = useAuth();
   const { handleAuthError } = useAuthErrors(setError);
 
-  const onSubmit: SubmitHandler<LoginForm> = async (data: LoginForm) => {
+  const onSubmit: SubmitHandler<LoginForm> = async (data: LoginForm, event?: React.BaseSyntheticEvent) => {
+    if (event) {
+      event.preventDefault();
+    }
     try {
       const response = await httpClient.post("/login", data);
       const { token, user } = response.data;
