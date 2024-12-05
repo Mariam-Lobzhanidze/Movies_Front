@@ -7,9 +7,10 @@ type AuthForm = LoginForm | RegistrationForm;
 export const useAuthErrors = (setError: UseFormSetError<AuthForm>) => {
   const handleAuthError = (error: unknown) => {
     if (axios.isAxiosError(error)) {
+      const status = error.response?.status;
       const errorMessage = error.response?.data.message;
 
-      if (errorMessage === "Email or password not found") {
+      if (errorMessage === "Email or password not found" && status === 401) {
         setError("password", { type: "manual", message: "Password or email is incorrect" });
       } else if (errorMessage === "Email already registered.") {
         setError("email", { type: "manual", message: "Email is already registered" });

@@ -5,7 +5,7 @@ import httpClient from "../../axios";
 import { emailPattern } from "../../validation/patterns";
 import { useAuth } from "../../context/authContext";
 import { useAuthErrors } from "./useAuthErrors";
-
+//
 const Login: React.FC = () => {
   const {
     register,
@@ -17,15 +17,12 @@ const Login: React.FC = () => {
   const { login } = useAuth();
   const { handleAuthError } = useAuthErrors(setError);
 
-  const onSubmit: SubmitHandler<LoginForm> = async (data: LoginForm, event?: React.BaseSyntheticEvent) => {
-    if (event) {
-      event.preventDefault();
-    }
+  const onSubmit: SubmitHandler<LoginForm> = async (data) => {
     try {
       const response = await httpClient.post("/login", data);
       const { token, user } = response.data;
       login(token, user);
-    } catch (error: unknown) {
+    } catch (error) {
       handleAuthError(error);
     }
   };
