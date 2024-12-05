@@ -9,10 +9,8 @@ export const useAuthErrors = (setError: UseFormSetError<AuthForm>) => {
     if (axios.isAxiosError(error)) {
       const errorMessage = error.response?.data.message;
 
-      if (errorMessage === "Invalid password.") {
-        setError("password", { type: "manual", message: "Password is incorrect" });
-      } else if (errorMessage === "Email not found.") {
-        setError("email", { type: "manual", message: "Email not registered" });
+      if (errorMessage === "Email or password not found") {
+        setError("password", { type: "manual", message: "Password or email is incorrect" });
       } else if (errorMessage === "Email already registered.") {
         setError("email", { type: "manual", message: "Email is already registered" });
       } else if (errorMessage === "Account is blocked.") {
