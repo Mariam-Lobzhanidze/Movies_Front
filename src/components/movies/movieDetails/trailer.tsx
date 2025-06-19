@@ -23,14 +23,23 @@ const TrailerPage: React.FC = () => {
   const [movieData, setMovieData] = useState<MovieData | null>(null);
 
   const { activeUser, updateActiveUser } = useAuth();
+  const [isInWatchList, setIsInWatchList] = useState(false);
 
   useEffect(() => {
     getMovieData();
   }, [id]);
 
+  useEffect(() => {
+    if (activeUser && id) {
+      const isMovieInWatchList = activeUser.watchlist.some((item) => item.id === +id);
+      setIsInWatchList(isMovieInWatchList);
+    }
+    console.log(typeof activeUser?.watchlist[0].id, typeof id);
+  }, [activeUser, id]);
+
   const addMovieToWatchlist = async () => {
     if (activeUser && id && movieData) {
-      if (!activeUser.watchlist.some((item) => item.id === id)) {
+      if (!isInWatchList) {
         await addToWatchlist(activeUser.id, id);
         const movie = {
           id: id,
@@ -135,7 +144,7 @@ const TrailerPage: React.FC = () => {
                 <div className="details-text ">
                   <h4 className="details-text-title">{movieData?.details?.title}</h4>
                   <p className="details-text-genre">{getMovieGenres()}</p>
-                  {!activeUser?.watchlist.some((item) => item.id === id) ? (
+                  {!isInWatchList ? (
                     <div className="watchlist-btn m-0 mt-3" onClick={addMovieToWatchlist}>
                       <button type="button" className="btn btn-dark btn-sm text-primary">
                         <svg

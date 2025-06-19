@@ -29,22 +29,22 @@ export const getPopularMovies = async (page: number): Promise<Movie[]> => {
   }
 };
 
-export const getMovieDetails = async (id: string) => {
+export const getMovieDetails = async (id: string | number) => {
   const response = await httpClient.get(`/movies/${id}`);
   return response.data;
 };
 
-export const getMovieTrailer = async (id: string) => {
+export const getMovieTrailer = async (id: string | number) => {
   const response = await httpClient.get(`/movies/${id}/trailer`);
   return response?.data?.trailerKey || null;
 };
 
-export const getImages = async (id: string) => {
+export const getImages = async (id: string | number) => {
   const response = await httpClient.get(`/movies/${id}/images`);
   return response.data;
 };
 
-export const getSimilarMovies = async (id: string) => {
+export const getSimilarMovies = async (id: string | number) => {
   const response = await httpClient.get(`/movies/${id}/similar`);
   return response.data;
 };
@@ -59,7 +59,7 @@ export const getTheatreMovies = async (): Promise<Movie[]> => {
   }
 };
 
-export const addFavorite = async (userId: string, movieId: string): Promise<void> => {
+export const addFavorite = async (userId: string, movieId: string | number): Promise<void> => {
   try {
     await httpClient.post("/favorites/add", { userId, movieId });
   } catch (error) {
@@ -68,7 +68,7 @@ export const addFavorite = async (userId: string, movieId: string): Promise<void
   }
 };
 
-export const removeFavorite = async (userId: string, movieId: string): Promise<void> => {
+export const removeFavorite = async (userId: string, movieId: string | number): Promise<void> => {
   try {
     await httpClient.delete(`/favorites/remove?userId=${userId}&movieId=${movieId}`);
   } catch (error) {
@@ -77,7 +77,7 @@ export const removeFavorite = async (userId: string, movieId: string): Promise<v
   }
 };
 
-export const addToWatchlist = async (userId: string, movieId: string): Promise<void> => {
+export const addToWatchlist = async (userId: string, movieId: string | number): Promise<void> => {
   try {
     await httpClient.post("/watchlist/add", { userId, movieId });
   } catch (error) {
@@ -86,7 +86,7 @@ export const addToWatchlist = async (userId: string, movieId: string): Promise<v
   }
 };
 
-export const removeFromWatchlist = async (userId: string, movieId: string): Promise<void> => {
+export const removeFromWatchlist = async (userId: string, movieId: string | number): Promise<void> => {
   try {
     await httpClient.delete(`/watchlist/remove?userId=${userId}&movieId=${movieId}`);
   } catch (error) {

@@ -37,7 +37,7 @@ export interface UsersData {
 
 // movie interface section
 export interface Movie {
-  id: string;
+  id: string | number;
   overview: string;
   poster_path: string;
   backdrop_path?: string;

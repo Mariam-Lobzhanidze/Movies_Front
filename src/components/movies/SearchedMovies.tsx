@@ -13,7 +13,7 @@ interface SearchedMoviesProps {
 const SearchedMovies: React.FC<SearchedMoviesProps> = ({ movies, show, onClose }) => {
   const navigate = useNavigate();
 
-  const handleLinkClick = (movieId: string | undefined) => {
+  const handleLinkClick = (movieId: string | number) => {
     onClose();
     navigate(`/movies/trailer/${movieId}`);
     scrollToTop();
